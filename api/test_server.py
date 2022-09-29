@@ -37,6 +37,7 @@ def test_something_mocked(flask_client):
     db.mongo.db.schema.insert_one({"name": "eggs", "quantity": 9})
     db.mongo.db.schema.insert_one({"name": "eggs", "quantity": 3})
     db.mongo.db.schema.insert_one({"name": "sausages", "quantity": 2})
+    
 
     
     

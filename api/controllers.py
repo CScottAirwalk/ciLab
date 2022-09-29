@@ -22,6 +22,16 @@ def post_items():
 @inventory.route("/", methods=['GET'])
 def get_inventory():
     # Return the list of items
-    # Return the item name and total quantity
-    return jsonify(list(db.mongo.db.schema.find({}, {"_id": True})))
+    # Return the item name and total quantity    
+    
+    pipeline = [
+    {"$unwind": "$name"},
+    {"$group": {"_id": "$name", "quantity": {"$sum": "$quantity"}}},
+    {"$project": {"_id": 0, "name": "$_id", "quantity": "$quantity"}},
+    ]
+    
+    return jsonify(list(db.mongo.db.schema.aggregate(pipeline)))
+
+
+
 
