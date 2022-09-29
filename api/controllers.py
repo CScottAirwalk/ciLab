@@ -13,7 +13,6 @@ def post_items():
     request_data = request.get_json()
     request_data["createdDate"] = datetime.now()
     db.mongo.db.schema.insert_one(request_data)
-    db.mong.db.schema.aggregate(request_data)
     print (request_data)
     del request_data['_id']
     return jsonify(request_data)
@@ -24,5 +23,15 @@ def post_items():
 def get_inventory():
     # Return the list of items
     # Return the item name and total quantity
-    return jsonify(list(db.mongo.db.schema.find({}, {"_id": True})))
+    
+    
+    pipeline = [
+    {"$unwind": "$name"},
+    {"$group": {"_id": "$name", "quantity": {"$sum": "$quantity"}}},
+    {"$project": {"_id": 0, "name": "$_id", "quantity": "$quantity"}},
+    ]
+    
+    return jsonify(list(db.mongo.db.schema.aggregate(pipeline)))
+
+
 
