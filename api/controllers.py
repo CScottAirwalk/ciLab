@@ -13,6 +13,7 @@ def post_items():
     request_data = request.get_json()
     request_data["createdDate"] = datetime.now()
     db.mongo.db.schema.insert_one(request_data)
+    db.mong.db.schema.aggregate(request_data)
     print (request_data)
     del request_data['_id']
     return jsonify(request_data)
