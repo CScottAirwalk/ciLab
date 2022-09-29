@@ -39,6 +39,8 @@ def test_something_mocked(flask_client):
     db.mongo.db.schema.insert_one({"name": "sausages", "quantity": 2})
     
 
+    
+    
     # Act
     # You can call the app
     resp = flask_client.get("/api/inventory")
