@@ -39,7 +39,7 @@ def test_something_mocked(flask_client):
     db.mongo.db.schema.insert_one({"name": "sausages", "quantity": 2})
     
     
-     pipeline = [
+    pipeline = [
     {"$unwind": "$name"},
     {"$group": {"_id": "$name", "quantity": {"$sum": "$quantity"}}},
     {"$project": {"_id": 0, "name": "$_id", "quantity": "$quantity"}},
