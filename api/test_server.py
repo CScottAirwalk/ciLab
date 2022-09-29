@@ -38,13 +38,7 @@ def test_something_mocked(flask_client):
     db.mongo.db.schema.insert_one({"name": "eggs", "quantity": 3})
     db.mongo.db.schema.insert_one({"name": "sausages", "quantity": 2})
 
-    pipeline = [
-    {"$unwind": "$name"},
-    {"$group": {"_id": "$name", "quantity": {"$sum": "$quantity"}}},
-    {"$project": {"_id": 0, "name": "$_id", "quantity": "$quantity"}},
-    ]
     
-    db.mongo.db.schema.aggregate(pipeline)
     
     # Act
     # You can call the app
