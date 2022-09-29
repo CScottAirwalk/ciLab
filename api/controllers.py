@@ -23,5 +23,5 @@ def post_items():
 def get_inventory():
     # Return the list of items
     # Return the item name and total quantity
-    return jsonify(list(db.mongo.db.schema.find({}, {"_id": False})))
+    return jsonify(list(db.mongo.db.schema.find({}, {"_id": True})))
 
